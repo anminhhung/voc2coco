@@ -8,7 +8,7 @@ import re
 
 
 def get_label2id(labels_path: str) -> Dict[str, int]:
-    """id is 1 start"""
+    """id is 0 start"""
     with open(labels_path, 'r') as f:
         labels_str = f.read().splitlines()
     labels_ids = list(range(len(labels_str)))
@@ -42,7 +42,7 @@ def get_image_info(annotation_root, extract_num_from_imgid=True):
     img_name = os.path.basename(filename)
     img_id = os.path.splitext(img_name)[0]
     if extract_num_from_imgid and isinstance(img_id, str):
-        img_id = int(re.findall(r'\d+', img_id)[0])
+        img_id = int(img_id[re.search('_', img_id).start()+1:])
 
     size = annotation_root.find('size')
     width = int(size.findtext('width'))
