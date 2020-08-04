@@ -22,7 +22,7 @@ def get_annpaths(ann_dir_path: str = None,
     # If use annotation paths list
     if annpaths_list_path is not None:
         with open(annpaths_list_path, 'r') as f:
-            ann_paths = f.read().split()
+            ann_paths = f.read().splitlines()
         return ann_paths
 
     # If use annotaion ids list
