@@ -42,8 +42,9 @@ def get_image_info(annotation_root, extract_num_from_imgid=True):
         filename = os.path.basename(path)
     img_name = os.path.basename(filename)
     img_id = os.path.splitext(img_name)[0]
-    if extract_num_from_imgid and isinstance(img_id, str):
-        img_id = int(img_id[re.search('_', img_id).start()+1:])
+    img_id = hash(img_id) % (10**9 + 7)
+    # if extract_num_from_imgid and isinstance(img_id, str):
+    #     img_id = int(img_id[re.search('_', img_id).start()+1:])
 
     size = annotation_root.find('size')
     width = int(size.findtext('width'))
