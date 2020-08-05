@@ -69,8 +69,8 @@ def get_coco_annotation_from_obj(obj, label2id):
     xmax = int(bndbox.findtext('xmax'))
     ymax = int(bndbox.findtext('ymax'))
     assert xmax > xmin and ymax > ymin, f"Box size error !: (xmin, ymin, xmax, ymax): {xmin, ymin, xmax, ymax}"
-    o_width = xmax - xmin
-    o_height = ymax - ymin
+    o_width = xmax - xmin + 1
+    o_height = ymax - ymin + 1
     ann = {
         'area': o_width * o_height,
         'iscrowd': 0,
