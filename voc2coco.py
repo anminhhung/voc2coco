@@ -11,7 +11,8 @@ def get_label2id(labels_path: str) -> Dict[str, int]:
     """id is 0 start"""
     with open(labels_path, 'r') as f:
         labels_str = f.read().splitlines()
-    labels_ids = list(range(len(labels_str)))
+    # labels_ids = list(range(len(labels_str)))
+    labels_ids = [0, 1, 1, -1, -1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
     return dict(zip(labels_str, labels_ids))
 
 
@@ -61,6 +62,7 @@ def get_coco_annotation_from_obj(obj, label2id):
     label = obj.findtext('name')
     assert label in label2id, f"Error: {label} is not in label2id !"
     category_id = label2id[label]
+    if category_id == -1: return None
     bndbox = obj.find('bndbox')
     xmin = int(bndbox.findtext('xmin')) - 1
     ymin = int(bndbox.findtext('ymin')) - 1
@@ -90,7 +92,7 @@ def convert_xmls_to_cocojson(annotation_paths: List[str],
         "annotations": [],
         "categories": []
     }
-    bnd_id = 1  # START_BOUNDING_BOX_ID, TODO input as args ?
+    bnd_id = 0  # START_BOUNDING_BOX_ID, TODO input as args ?
     print('Start converting !')
     for a_path in tqdm(annotation_paths):
         # Read annotation xml
@@ -104,6 +106,7 @@ def convert_xmls_to_cocojson(annotation_paths: List[str],
 
         for obj in ann_root.findall('object'):
             ann = get_coco_annotation_from_obj(obj=obj, label2id=label2id)
+            if ann == None: continue
             ann.update({'image_id': img_id, 'id': bnd_id})
             output_json_dict['annotations'].append(ann)
             bnd_id = bnd_id + 1
