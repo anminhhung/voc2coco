@@ -107,7 +107,8 @@ def convert_xmls_to_cocojson(annotation_paths: List[str],
         for obj in ann_root.findall('object'):
             ann = get_coco_annotation_from_obj(obj=obj, label2id=label2id)
             if ann == None: continue
-            ann.update({'image_id': img_id, 'id': bnd_id})
+            id = (img_id * 1000 + bnd_id) % (10 ** 9 + 7)
+            ann.update({'image_id': img_id, 'id': id})
             output_json_dict['annotations'].append(ann)
             bnd_id = bnd_id + 1
 
