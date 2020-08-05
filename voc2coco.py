@@ -64,8 +64,8 @@ def get_coco_annotation_from_obj(obj, label2id):
     category_id = label2id[label]
     if category_id == -1: return None
     bndbox = obj.find('bndbox')
-    xmin = int(bndbox.findtext('xmin')) - 1
-    ymin = int(bndbox.findtext('ymin')) - 1
+    xmin = int(bndbox.findtext('xmin'))
+    ymin = int(bndbox.findtext('ymin'))
     xmax = int(bndbox.findtext('xmax'))
     ymax = int(bndbox.findtext('ymax'))
     assert xmax > xmin and ymax > ymin, f"Box size error !: (xmin, ymin, xmax, ymax): {xmin, ymin, xmax, ymax}"
