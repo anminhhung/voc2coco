@@ -11,7 +11,7 @@ def get_label2id(labels_path: str) -> Dict[str, int]:
     """id is 0 start"""
     with open(labels_path, 'r') as f:
         labels_str = f.read().splitlines()
-    labels_ids = list(range(len(labels_str)))
+    labels_ids = list(range(len(1, labels_str+1)))
     # labels_ids = [0, 1, 1, -1, -1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
     return dict(zip(labels_str, labels_ids))
 
@@ -93,7 +93,7 @@ def convert_xmls_to_cocojson(annotation_paths: List[str],
         "annotations": [],
         "categories": []
     }
-    bnd_id = 0  # START_BOUNDING_BOX_ID, TODO input as args ?
+    bnd_id = 1  # START_BOUNDING_BOX_ID, TODO input as args ?
     print('Start converting !')
     for a_path in tqdm(annotation_paths):
         # Read annotation xml
