@@ -11,7 +11,7 @@ def get_label2id(labels_path: str) -> Dict[str, int]:
     """id is 0 start"""
     with open(labels_path, 'r') as f:
         labels_str = f.read().splitlines()
-    labels_ids = list(range(1, len(labels_str)+1))
+    labels_ids = list(range(0, len(labels_str)))
     # labels_ids = [0, 1, 1, -1, -1, 2, 2, 2, 3, 3, 3, 4, 4, 4]
     return dict(zip(labels_str, labels_ids))
 
