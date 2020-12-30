@@ -63,9 +63,18 @@ def get_coco_annotation_from_obj(obj, label2id):
     bndbox = obj.find('bndbox')
     xmin = int(bndbox.findtext('xmin'))
     ymin = int(bndbox.findtext('ymin'))
-    xmax = int(bndbox.findtext('xmax'))
-    ymax = int(bndbox.findtext('ymax'))
-    assert xmax > xmin and ymax > ymin, f"Box size error !: (xmin, ymin, xmax, ymax): {xmin, ymin, xmax, ymax}"
+    # format xml : max min
+    # xmax = int(bndbox.findtext('xmax'))
+    # ymax = int(bndbox.findtext('ymax'))
+
+    # format xml: tlwh
+    width = int(bndbox.findtext('width'))
+    height = int(bndbox.findtext('height'))
+    xmax = xmin + width
+    ymax = ymin + height
+    # assert xmax > xmin and ymax > ymin, f"Box size error !: (xmin, ymin, xmax, ymax): {xmin, ymin, xmax, ymax}"
+    if xmin >= xmax and ymin >= ymax:
+      return 
     o_width = xmax - xmin + 1
     o_height = ymax - ymin + 1
     ann = {
